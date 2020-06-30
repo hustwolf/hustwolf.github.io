@@ -1,7 +1,7 @@
 ---
 title: java concurrent
 date: 2020-06-27 15:07:57
-tags:
+tags: java 
 ---
 ## jqs
 
