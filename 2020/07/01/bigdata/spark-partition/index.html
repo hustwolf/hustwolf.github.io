@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="spark-partition"/>
+
+
+
+
+  <meta name="keywords" content="spark," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="hustwolf's blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://hustwolf.github.io/2020/07/01/bigdata/spark-partition/"/>
+
+
+<meta name="description" content="spark是一个分布式的计算引擎，分布式处理的对象，就是一个个partitiondata stored in partitions AND oerated in parallel 那些因素决定了Partition？在spark中，有各种地方都跟partition有关，比如  source rdd   source RDD HDFSone partition per HDFS block  one">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spark-partition">
+<meta property="og:url" content="https://hustwolf.github.io/2020/07/01/bigdata/spark-partition/index.html">
+<meta property="og:site_name" content="hustwolf&#39;s blog">
+<meta property="og:description" content="spark是一个分布式的计算引擎，分布式处理的对象，就是一个个partitiondata stored in partitions AND oerated in parallel 那些因素决定了Partition？在spark中，有各种地方都跟partition有关，比如  source rdd   source RDD HDFSone partition per HDFS block  one">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-01T07:24:36.000Z">
+<meta property="article:modified_time" content="2020-07-16T06:08:37.409Z">
+<meta property="article:author" content="hustwolf">
+<meta property="article:tag" content="spark">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?wolfinhust";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+    <title> spark-partition - hustwolf's blog </title>
+  <meta name="generator" content="Hexo 4.2.1"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">hustwolf's blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          spark-partition
+        
+      </h1>
+
+      <time class="post-time">
+          7月 01 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>spark是一个分布式的计算引擎，分布式处理的对象，就是一个个partition<br>data stored in partitions AND oerated in parallel</p>
+<h1 id="那些因素决定了Partition？"><a href="#那些因素决定了Partition？" class="headerlink" title="那些因素决定了Partition？"></a>那些因素决定了Partition？</h1><p>在spark中，有各种地方都跟partition有关，比如</p>
+<ul>
+<li>source rdd</li>
+<li></li>
+</ul>
+<h2 id="source-RDD"><a href="#source-RDD" class="headerlink" title="source RDD"></a>source RDD</h2><ul>
+<li>HDFS<br>one partition per HDFS block</li>
+</ul>
+<h2 id="one-to-one-Tran"><a href="#one-to-one-Tran" class="headerlink" title="one to one Tran"></a>one to one Tran</h2><p>Partitions in = Partitions out</p>
+<h2 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">If shuffle required</span><br><span class="line">  If spark.default.parallelism set</span><br><span class="line">      New hash partitioning with &#96;spark.default.parallelism&#96;</span><br><span class="line">  else if spark.default.parallelism not set</span><br><span class="line">      Number of partitions in parent RDD with most partitions</span><br><span class="line">else</span><br><span class="line">  Partitions in &#x3D; Partitions out</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="datasets-DataFrame-SparkSQL"><a href="#datasets-DataFrame-SparkSQL" class="headerlink" title="datasets/DataFrame/SparkSQL"></a>datasets/DataFrame/SparkSQL</h2><p>参数 spark.sql.shuffle.partitions 控制</p>
+<h2 id="appendix"><a href="#appendix" class="headerlink" title="appendix"></a>appendix</h2><p>当然我们自己随时都可以自己定义partition的数量</p>
+<h2 id="spark"><a href="#spark" class="headerlink" title="spark"></a>spark</h2><blockquote>
+<p>spark.sql.shuffle.partitions  默认值200，控制在join 或者aggregations时partitions的数量; 貌似这个参数只在spark sql中起作用；用于dataframe</p>
+</blockquote>
+<blockquote>
+<p>spark.default.parallelism 在RDD的join、reduceBykey等算子中起作用; 如果是这些shuffle算子，那么等于父rdd的最大值，如果没有parent rdd；那就是 Local mode: number of cores on the local machine<br>Mesos fine grained mode: 8<br>Others: total number of cores on all executor nodes or 2, whichever is larger</p>
+</blockquote>
+<ul>
+<li>sparkSession created DataFrame </li>
+</ul>
+<h3 id="partition-policy"><a href="#partition-policy" class="headerlink" title="partition policy"></a>partition policy</h3><ul>
+<li>Hash Partition</li>
+</ul>
+<p>这是默认的行为</p>
+<blockquote>
+<p>Partition id = key.hashCode() % numPartitions</p>
+</blockquote>
+<ul>
+<li>range Partition</li>
+</ul>
+<p>不同的算子，使用不同的partition policy<br>比如 GroupByKey、ReduceByKey  默认使用Hash Partitioning</p>
+<p>而sortByKey使用range partitioning</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/spark/">spark</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/07/01/bigdata/spark-submit/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">spark submit</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/06/30/java/java-generic-strategy/">
+        <span class="next-text nav-default">java-generic-strategy</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2020
+    <span class="footer-author">hustwolf.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+<script type="text/javascript">
+  var disqus_shortname = 'hustwolf';
+  var disqus_identifier = '2020/07/01/bigdata/spark-partition/';
+
+  var disqus_title = "spark-partition";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
+  
+
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

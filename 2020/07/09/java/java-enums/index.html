@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="java-enums"/>
+
+
+
+
+  <meta name="keywords" content="java," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="hustwolf's blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://hustwolf.github.io/2020/07/09/java/java-enums/"/>
+
+
+<meta name="description" content="本质：一个只有有限个常量值的类型 enum 其实比较像class  extends java.lang.Enum  can’t be extended；但是可以implement interface Yes, Enum can implement any interface in Java. Since enum is a type, similar to any other class and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-enums">
+<meta property="og:url" content="https://hustwolf.github.io/2020/07/09/java/java-enums/index.html">
+<meta property="og:site_name" content="hustwolf&#39;s blog">
+<meta property="og:description" content="本质：一个只有有限个常量值的类型 enum 其实比较像class  extends java.lang.Enum  can’t be extended；但是可以implement interface Yes, Enum can implement any interface in Java. Since enum is a type, similar to any other class and">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-09T03:25:25.000Z">
+<meta property="article:modified_time" content="2020-07-16T06:31:13.616Z">
+<meta property="article:author" content="hustwolf">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  <script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?wolfinhust";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+    <title> java-enums - hustwolf's blog </title>
+  <meta name="generator" content="Hexo 4.2.1"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">hustwolf's blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          java-enums
+        
+      </h1>
+
+      <time class="post-time">
+          7月 09 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>本质：<br>一个只有有限个常量值的类型</p>
+<p>enum 其实比较像class</p>
+<ul>
+<li><p>extends java.lang.Enum</p>
+</li>
+<li><p>can’t be extended；但是可以implement interface</p>
+<p>Yes, Enum can implement any interface in Java. Since enum is a type, similar to any other class and interface, it can implement any interface in java. This gives lot of flexibility in some cases to use Enum to implement some other behavior.</p>
+</li>
+</ul>
+<h2 id="枚举可以有自己的field、method、constructor"><a href="#枚举可以有自己的field、method、constructor" class="headerlink" title="枚举可以有自己的field、method、constructor"></a>枚举可以有自己的field、method、constructor</h2><p>其实枚举中的常量值就是一个个的instance，所以某种程度来说，枚举是singlton的泛化</p>
+<p>其实在effective java中，也提到了合理使用enum的建议</p>
+<h2 id="EnumSet、EnumMap"><a href="#EnumSet、EnumMap" class="headerlink" title="EnumSet、EnumMap"></a>EnumSet、EnumMap</h2><p>key是enum；直接使用</p>
+<p><a href="https://blog.scottlogic.com/2016/07/28/java-enums-how-to-use-them-smarter.html" target="_blank" rel="noopener">https://blog.scottlogic.com/2016/07/28/java-enums-how-to-use-them-smarter.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/java/">java</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/07/09/bigdata/kudu-impala/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">kudu-impala</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/07/09/distribute-system/distribute-tx/">
+        <span class="next-text nav-default">distribute-tx</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+    <div style="text-align:center;">
+        <button class="btn" id="load-disqus" onclick="disqus.load();">加载 Disqus 评论</button>
+    </div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2020
+    <span class="footer-author">hustwolf.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+<script type="text/javascript">
+  var disqus_shortname = 'hustwolf';
+  var disqus_identifier = '2020/07/09/java/java-enums/';
+
+  var disqus_title = "java-enums";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+    var disqus_config = function () {
+        this.page.url = disqus_url;
+        this.page.identifier = disqus_identifier;
+        this.page.title = disqus_title;
+    };
+  
+
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
