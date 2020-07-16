@@ -98,4 +98,7 @@ theme: polarbear
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: ''
+  type: git
+  repo: git@github.com:hustwolf/hustwolf.github.io.git
+  branch: master
+  

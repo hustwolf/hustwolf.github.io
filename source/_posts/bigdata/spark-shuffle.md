@@ -34,4 +34,9 @@ spark.sql.autoBroadcastJoinThreshold=10M
 
 
 
- 
+
+## join order
+对于 equi-join 来说，顺序是
+- Broadcast Hash join
+- Shuffle Hash join： 如果
+- Sort Merge: 如果matching key是可排序的
