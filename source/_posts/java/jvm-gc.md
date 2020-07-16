@@ -1,7 +1,7 @@
 ---
 title: jvm-gc
 date: 2020-07-09 13:58:31
-tags:
+tags: jvm
 ---
 
 safepoint:

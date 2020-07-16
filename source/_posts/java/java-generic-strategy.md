@@ -1,7 +1,7 @@
 ---
 title: java-generic-strategy
 date: 2020-06-30 22:59:14
-tags:
+tags: java
 ---
 
 经常在代码里看到这种写法

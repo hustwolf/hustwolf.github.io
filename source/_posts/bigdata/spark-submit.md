@@ -1,7 +1,7 @@
 ---
 title: spark submit
 date: 2020-07-01 16:34:04
-tags:
+tags: spark
 ---
 这里以在yarn上跑为例解析
 

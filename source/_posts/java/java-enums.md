@@ -1,7 +1,7 @@
 ---
 title: java-enums
 date: 2020-07-09 11:25:25
-tags:
+tags: java
 ---
 本质：
 一个只有有限个常量值的类型
