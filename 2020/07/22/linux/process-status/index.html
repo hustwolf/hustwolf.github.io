@@ -12,10 +12,12 @@
 
 
 
-  <meta name="description" content="max-triangle-perimeter"/>
+  <meta name="description" content="linux-process"/>
 
 
 
+
+  <meta name="keywords" content="linux," />
 
 
 
@@ -30,19 +32,20 @@
 
 
 
-<link rel="canonical" href="https://hustwolf.github.io/2020/07/16/algorithm/max-triangle-perimeter/"/>
+<link rel="canonical" href="https://hustwolf.github.io/2020/07/22/linux/process-status/"/>
 
 
-<meta name="description" content="问题给定一堆长短不一的木棍，找出可以组成的最大的三角形的周长">
+<meta name="description" content="http:&#x2F;&#x2F;arthurchiao.art&#x2F;blog&#x2F;how-does-ltrace-work-zh&#x2F; ltrace 用来跟踪进程调用库函数strace 用来跟踪系统调用 or 信号产生 他们都是通过ptrace系统调用实现的 ptrace 系统调用非常强大，可以跟踪系统调用、重写运行中程序的内存、读取运行中程 序的寄存器等等。 strace 和 ltrace 都使用 PTRACE_SYSCAL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="max-triangle-perimeter">
-<meta property="og:url" content="https://hustwolf.github.io/2020/07/16/algorithm/max-triangle-perimeter/index.html">
+<meta property="og:title" content="linux-process">
+<meta property="og:url" content="https://hustwolf.github.io/2020/07/22/linux/process-status/index.html">
 <meta property="og:site_name" content="hustwolf&#39;s blog">
-<meta property="og:description" content="问题给定一堆长短不一的木棍，找出可以组成的最大的三角形的周长">
+<meta property="og:description" content="http:&#x2F;&#x2F;arthurchiao.art&#x2F;blog&#x2F;how-does-ltrace-work-zh&#x2F; ltrace 用来跟踪进程调用库函数strace 用来跟踪系统调用 or 信号产生 他们都是通过ptrace系统调用实现的 ptrace 系统调用非常强大，可以跟踪系统调用、重写运行中程序的内存、读取运行中程 序的寄存器等等。 strace 和 ltrace 都使用 PTRACE_SYSCAL">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-16T06:22:40.000Z">
-<meta property="article:modified_time" content="2020-07-16T06:25:11.528Z">
+<meta property="article:published_time" content="2020-07-22T12:36:43.000Z">
+<meta property="article:modified_time" content="2020-07-22T13:45:00.263Z">
 <meta property="article:author" content="hustwolf">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
 
 
@@ -76,7 +79,7 @@
 
 
 
-    <title> max-triangle-perimeter - hustwolf's blog </title>
+    <title> linux-process - hustwolf's blog </title>
   <meta name="generator" content="Hexo 4.2.1"></head>
 
   <body>
@@ -122,12 +125,12 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          max-triangle-perimeter
+          linux-process
         
       </h1>
 
       <time class="post-time">
-          7月 16 2020
+          7月 22 2020
       </time>
     </header>
 
@@ -135,7 +138,24 @@
 
     
             <div class="post-content">
-            <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>给定一堆长短不一的木棍，找出可以组成的最大的三角形的周长</p>
+            <p><a href="http://arthurchiao.art/blog/how-does-ltrace-work-zh/" target="_blank" rel="noopener">http://arthurchiao.art/blog/how-does-ltrace-work-zh/</a></p>
+<p>ltrace 用来跟踪进程调用库函数<br>strace 用来跟踪系统调用 or 信号产生</p>
+<p>他们都是通过ptrace系统调用实现的</p>
+<p>ptrace 系统调用非常强大，可以跟踪系统调用、重写运行中程序的内存、读取运行中程 序的寄存器等等。</p>
+<p>strace 和 ltrace 都使用 PTRACE_SYSCALL 跟踪系统调用。两者的大致工作过程类 似：为被跟踪程序触发 SIGTRAP 信号，暂停执行，通知跟踪程序（strace 或 ltrace），然后跟踪程序被“唤醒”，分析被暂停的程序。</p>
+<p>ltrace 还会通过 PTRACE_POKETEXT 重写程序内存，以便通过特殊指令中断程序的执行。</p>
+<ul>
+<li>VDSO</li>
+</ul>
+<ul>
+<li>usage</li>
+</ul>
+<ul>
+<li>编写动态分析工具，如gdb,strace</li>
+<li>反追踪，一个进程只能被一个进程追踪(注：一个进程能同时追踪多个进程)，若此进程已被追踪，其他基于ptrace的追踪器将无法再追踪此进程，更进一步可以实现子母进程双线执行动态解密代码等更高级的反分析技术</li>
+<li>代码注入，往其他进程里注入代码。</li>
+<li>本篇关注点–做沙箱，它也能监控系统调用，因此可限制tracee的系统调用。</li>
+</ul>
 
             </div>
           
@@ -143,20 +163,26 @@
     
       <footer class="post-footer">
 		
+		<div class="post-tags">
+		  
+			<a href="/tags/linux/">linux</a>
+		  
+		</div>
+		
 
         
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2020/07/16/bigdata/hql-execute/">
+      <a class="prev" href="/2020/07/22/linux/core-dump/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">hql-execute</span>
+        <span class="prev-text nav-default">linux-core-dump</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2020/07/16/algorithm/longest-increasing-subsequence/">
-        <span class="next-text nav-default">最长上升子序列</span>
+      <a class="next" href="/2020/07/18/middleware/mysql/">
+        <span class="next-text nav-default">middleware/mysql</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -210,9 +236,9 @@
 
 <script type="text/javascript">
   var disqus_shortname = 'hustwolf';
-  var disqus_identifier = '2020/07/16/algorithm/max-triangle-perimeter/';
+  var disqus_identifier = '2020/07/22/linux/process-status/';
 
-  var disqus_title = "max-triangle-perimeter";
+  var disqus_title = "linux-process";
 
 
   var disqus = {

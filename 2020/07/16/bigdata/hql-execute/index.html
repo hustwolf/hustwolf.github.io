@@ -35,13 +35,15 @@
 <link rel="canonical" href="https://hustwolf.github.io/2020/07/16/bigdata/hql-execute/"/>
 
 
+<meta name="description" content="compiler DO： HQL to AST使用antlr进行解析 Semantic Analyzer DO: AST to Query Block Tree语义分析，比如检查table是否存在，类型、表达式是否合法 Logical Plan Generator DO: QB tree to logical plan ， 即operator Tree Optimizer 优化operator">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hql-execute">
 <meta property="og:url" content="https://hustwolf.github.io/2020/07/16/bigdata/hql-execute/index.html">
 <meta property="og:site_name" content="hustwolf&#39;s blog">
+<meta property="og:description" content="compiler DO： HQL to AST使用antlr进行解析 Semantic Analyzer DO: AST to Query Block Tree语义分析，比如检查table是否存在，类型、表达式是否合法 Logical Plan Generator DO: QB tree to logical plan ， 即operator Tree Optimizer 优化operator">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-16T06:24:42.000Z">
-<meta property="article:modified_time" content="2020-07-16T06:30:54.959Z">
+<meta property="article:modified_time" content="2020-07-18T04:40:04.387Z">
 <meta property="article:author" content="hustwolf">
 <meta property="article:tag" content="hive">
 <meta name="twitter:card" content="summary">
@@ -136,7 +138,16 @@
 
     
             <div class="post-content">
-            
+            <ul>
+<li>compiler DO： HQL to AST<br>使用antlr进行解析</li>
+<li>Semantic Analyzer DO: AST to Query Block Tree<br>语义分析，比如检查table是否存在，类型、表达式是否合法</li>
+<li>Logical Plan Generator DO: QB tree to logical plan ， 即operator Tree</li>
+<li>Optimizer 优化operator Tree<br>包括以下算法，比如 列裁剪、partition裁剪、谓词下推</li>
+<li>physical plan gen DO: 生成task tree</li>
+<li>physical optimizer</li>
+</ul>
+<h1 id="hive-的一些优化"><a href="#hive-的一些优化" class="headerlink" title="hive 的一些优化"></a>hive 的一些优化</h1><p>常规的不说了；说一下join</p>
+
             </div>
           
 
@@ -153,6 +164,12 @@
         
         
   <nav class="post-nav">
+    
+      <a class="prev" href="/2020/07/18/middleware/mysql/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">middleware/mysql</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
     
     
       <a class="next" href="/2020/07/16/algorithm/max-triangle-perimeter/">
