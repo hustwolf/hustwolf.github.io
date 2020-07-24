@@ -1,0 +1,1 @@
+https://www.dnsstuff.com/how-to-optimize-mysql-database
