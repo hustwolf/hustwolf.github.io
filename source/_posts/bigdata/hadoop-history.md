@@ -19,9 +19,12 @@ hdfs支持ha
 hadoop3的改动呢？
 
 - 最低支持java8
+
 - hdfs支持erasure code
+
 - 对于编程来说，不要引入runtime dependency； shaded client jars
-- 
+
+  
 
 
 而spark history呢？
